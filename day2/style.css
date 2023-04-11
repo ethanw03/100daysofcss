@@ -1,0 +1,20 @@
+:root {
+	--primary: #4ec6ca;
+	--secondary: #43389f;
+}
+
+/* Var declaration access using var(--primary) & var(--secondary) */
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Courier New', Courier, monospace;
+}
+
+body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+}
