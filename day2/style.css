@@ -1,20 +1,119 @@
-:root {
-	--primary: #4ec6ca;
-	--secondary: #43389f;
-}
-
-/* Var declaration access using var(--primary) & var(--secondary) */
-
 * {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	font-family: 'Courier New', Courier, monospace;
 }
 
 body {
+	min-height: 100vh;
+	background-color: #3faf82;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	min-height: 100vh;
+}
+
+.menu {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	row-gap: 16px;
+}
+
+.menu div {
+	width: 100px;
+	height: 10px;
+	background-color: #fff;
+	box-shadow: 0px 0px 20px #00000030;
+	border-radius: 5px;
+	transition: all 0.3s;
+}
+
+/* animate will be in order
+on click second bar scales to 0
+first and third bar translates position to second bar
+first bar rotates 45 and third rotates 135
+
+while reversing, everything gets reverted back to original state
+*/
+
+/* animation for second bar */
+
+.menu.active div:nth-child(2) {
+	transform: scale(0);
+	opacity: 0;
+}
+
+/* animation for first bar
+forwards maintain the tranforms while animating */
+
+.menu.active div:nth-child(1) {
+	animation: bar1Anim 0.3s ease-in-out forwards;
+}
+
+@keyframes bar1Anim {
+	50% {
+		transform: translateY(24px);
+	}
+	100% {
+		transform: translateY(24px) rotateZ(45deg);
+	}
+}
+
+.menu.active div:nth-child(3) {
+	animation: bar2Anim 0.3s ease-in-out forwards;
+}
+
+@keyframes bar2Anim {
+	50% {
+		transform: translateY(-27px);
+	}
+	100% {
+		transform: translateY(-27px) rotateZ(135deg);
+	}
+}
+
+/* reverse animation */
+.menu div:nth-child(1) {
+	animation: bar1revAnim 0.3s ease-in-out forwards;
+}
+
+@keyframes bar1revAnim {
+	0% {
+		transform: translateY(24px) rotateZ(45deg);
+	}
+	50% {
+		transform: translateY(24px) rotateZ(0deg);
+	}
+	100% {
+		transform: translateY(0px);
+	}
+}
+
+/* hiiding other two bars for debugging */
+
+/* .menu div:nth-child(1),
+.menu div:nth-child(2) {
+	opacity: 0.2;
+} */
+
+.menu div:nth-child(3) {
+	animation: bar3revAnim 0.3s ease-in-out;
+}
+
+@keyframes bar3revAnim {
+	0% {
+		transform: translateY(-24px) rotateZ(135deg);
+	}
+	50% {
+		transform: translateY(-24px) rotateZ(0deg);
+	}
+	100% {
+		transform: translateY(0px);
+	}
+}
+
+/* hide initial animation */
+
+.menu.inactive {
+	animation: none;
 }
